@@ -7,7 +7,7 @@
 
 void cmain(void) {
 
-    const char *str = "my first kernel";
+    const char *str = "Hello world from my first kernel";
 	char *vidptr = (char*)VIDEO_MEMORY_START;
 	unsigned int i = 0;
 	unsigned int j = 0;

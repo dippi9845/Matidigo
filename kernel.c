@@ -122,35 +122,39 @@ void keyboard_handler_main(void) {
 	}
 }
 
+void kprint(const char *str)
+{
+	unsigned int i = 0;
+	while (str[i] != '\0') {
+		vidptr[current_cursor_location++] = str[i++];
+		vidptr[current_cursor_location++] = 0x07;
+	}
+}
+
+void kprint_newline(void)
+{
+	unsigned int line_size = BYTES_PER_PIXEL * COLUMNS;
+	current_cursor_location = current_cursor_location + (line_size - current_cursor_location % (line_size));
+}
+
+void clear_screen(void)
+{
+	unsigned int i = 0;
+	while (i < SCREENSIZE) {
+		vidptr[i++] = ' ';
+		vidptr[i++] = 0x07;
+	}
+}
 
 void cmain(void) {
+	const char *str = "my first kernel with keyboard support";
+	clear_screen();
+	kprint(str);
+	kprint_newline();
+	kprint_newline();
 
-    const char *str = "Hello world from my first kernel";
-	unsigned int i = 0;
-	unsigned int j = 0;
+	idt_init();
+	kb_init();
 
-    /* clear the screen */
-    while(j < SCREENSIZE) {
-		/* blank character */
-		vidptr[j] = BLANCK_CHAR;
-
-		/* attribute-byte - light grey on black screen */
-		vidptr[j+1] = LIGHT_GREY; 		
-		j += BYTES_PER_PIXEL;
-	}
-
-	j = 0;
-
-    /* this loop writes the string to video memory */
-	while(str[j] != '\0') {
-		/* the actual character in ascii */
-		vidptr[i] = str[j];
-
-		/* the color of the previos char */
-		vidptr[i+1] = LIGHT_GREY;
-		j++;
-		i += BYTES_PER_PIXEL;
-	}
-
-	return;
+	while(1);
 }

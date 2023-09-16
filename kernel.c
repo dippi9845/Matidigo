@@ -16,6 +16,7 @@
 
 #define ENTER_KEY_CODE 0x1C
 
+#include "keyboard_map.h"
 extern unsigned char keyboard_map[128];
 extern void keyboard_handler(void);
 extern char read_port(unsigned short port);

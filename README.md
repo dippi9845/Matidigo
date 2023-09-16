@@ -1,6 +1,12 @@
 # Matidigo
 A base kernel that prints a simple string at screen
 
+Compile kernel
+```bash
+make exe/kernel
+```
+
+
 Create object from the kernel.asm
 ```bash
 nasm -f elf32 kernel.asm -o kasm.o

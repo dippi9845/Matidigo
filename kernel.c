@@ -4,16 +4,42 @@
 #define LIGHT_GREY 0x07
 #define VIDEO_MEMORY_START 0xb8000
 #define BLANCK_CHAR ' '
+#define SCREENSIZE BYTES_PER_PIXEL * COLUMNS * LINES
+
+
+#define KEYBOARD_DATA_PORT 0x60
+#define KEYBOARD_STATUS_PORT 0x64
+#define IDT_SIZE 256
+#define INTERRUPT_GATE 0x8e
+#define KERNEL_CODE_SEGMENT_OFFSET 0x08
+
+
+#define ENTER_KEY_CODE 0x1C
+
+extern unsigned char keyboard_map[128];
+extern void keyboard_handler(void);
+extern char read_port(unsigned short port);
+extern void write_port(unsigned short port, unsigned char data);
+extern void load_idt(unsigned long *idt_ptr);
+
+
+
+unsigned int current_cursor_location = 0;
+
+
+char *vidptr = (char*)VIDEO_MEMORY_START;
+
+
+
 
 void cmain(void) {
 
     const char *str = "Hello world from my first kernel";
-	char *vidptr = (char*)VIDEO_MEMORY_START;
 	unsigned int i = 0;
 	unsigned int j = 0;
 
     /* clear the screen */
-    while(j < COLUMNS * LINES * BYTES_PER_PIXEL) {
+    while(j < SCREENSIZE) {
 		/* blank character */
 		vidptr[j] = BLANCK_CHAR;
 

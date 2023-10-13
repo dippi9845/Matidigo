@@ -18,4 +18,19 @@ namespace matidigo {
     
     } __attribute__((packed));
 
+    class GlobalDescriptorTable
+    {
+        public:
+            GlobalDescriptorTable();
+            ~GlobalDescriptorTable();
+
+            matidigo::types::uint16_t CodeSegmentSelector();
+            matidigo::types::uint16_t DataSegmentSelector();
+        
+        private:
+            SegmentDescriptor code_segment_selector;
+            SegmentDescriptor null_segment_selector;
+            SegmentDescriptor data_segment_selector;
+            SegmentDescriptor unused_segment_selector;
+    };
 }

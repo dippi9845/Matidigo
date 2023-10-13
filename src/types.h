@@ -1,3 +1,6 @@
+#ifndef __MATIDIGO_TYPES_H__
+#define __MATIDIGO_TYPES_H__
+
 namespace matidigo {
     namespace types {
         typedef unsigned char uint8_t;
@@ -16,3 +19,5 @@ namespace matidigo {
         typedef const char* string;
     }
 }
+
+#endif

@@ -146,7 +146,7 @@ void clear_screen(void)
 	}
 }
 
-void cmain(void) {
+void CMain(void) {
 	const char *str = "my first kernel with keyboard support";
 	clear_screen();
 	kprint(str);

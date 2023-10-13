@@ -5,8 +5,8 @@ section .text
 
     align 4
     dd 0x1BADB002            ; magic field
-    dd 0x00                  ; flags field
-    dd - (0x1BADB002 + 0x00) ; checksum field m+f+c should be zero
+    dd 0x03                  ; flags field
+    dd - (0x1BADB002 + 0x03) ; checksum field m+f+c should be zero
 
 global start
 global load_idt

@@ -56,10 +56,31 @@ LINKER=ld ${LINK_FLAGS}
 CKERNEL_OBJ=${OBJECT_DIR}/kc.o
 AKERNEL_OBJ=${OBJECT_DIR}/kasm.o
 
-.PHONY: clean all
+ISO_CFG_FILE=iso/boot/grub/grub.cfg
+
+
+.PHONY: clean all 
 
 all : ${EXE_DIR}/kernel
 
+
+
+matidigo.iso: ${EXE_DIR}/kernel
+	mkdir iso
+	mkdir iso/boot
+	mkdir iso/boot/grub
+	cp ${EXE_DIR}/kernel iso/boot/kernel
+	
+	echo 'set timeout=0'                      > ${ISO_CFG_FILE}
+	echo 'set default=0'                     >> ${ISO_CFG_FILE}
+	echo ''                                  >> ${ISO_CFG_FILE}
+	echo 'menuentry "My Operating System" {' >> ${ISO_CFG_FILE}
+	echo '  multiboot /boot/kernel.bin'      >> ${ISO_CFG_FILE}
+	echo '  boot'                            >> ${ISO_CFG_FILE}
+	echo '}'                                 >> ${ISO_CFG_FILE}
+	
+	grub-mkrescue --output=matidigo.iso iso
+	-rm -rf iso
 
 ${EXE_DIR}/kernel : ${CKERNEL_OBJ} ${AKERNEL_OBJ}
 	${LINKER} ${LINK_FILE} -o ${EXE_DIR}/kernel ${CKERNEL_OBJ} ${AKERNEL_OBJ}

@@ -1,3 +1,6 @@
+#ifndef GLOBAL_DESCRIPTOR_TABLE_H
+#define GLOBAL_DESCRIPTOR_TABLE_H
+
 #include "types.h"
 
 namespace matidigo {
@@ -34,3 +37,5 @@ namespace matidigo {
             SegmentDescriptor unused_segment_selector;
     };
 }
+
+#endif

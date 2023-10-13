@@ -14,8 +14,9 @@ global keyboard_handler
 global read_port
 global write_port
 
-extern cmain    ;cmain is defined in a c file
+extern CMain    ; is defined in a cpp file
 extern keyboard_handler_main
+extern CallConstructors 
 
 read_port:
 	mov edx, [esp + 4]
@@ -44,7 +45,8 @@ keyboard_handler:
 start:
   cli 			                ;block interrupts
   mov esp, start_stack_space	;set stack pointer
-  call cmain
+  call CallConstructors
+  call CMain
   hlt		 	                ;halt the CPU
 
 section .bss

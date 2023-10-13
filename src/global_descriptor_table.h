@@ -1,6 +1,9 @@
 #ifndef GLOBAL_DESCRIPTOR_TABLE_H
 #define GLOBAL_DESCRIPTOR_TABLE_H
 
+#define MAX_ADDRESSABLE_16BIT_MEMORY 0x10000
+#define FIRST_12_ONES 0xFFF
+
 #include "types.h"
 
 namespace matidigo {

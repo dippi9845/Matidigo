@@ -21,16 +21,18 @@ matidigo::GlobalDescriptorTable::GlobalDescriptorTable() {
     uint32_t j[2];
     j[1] = (uint32_t)this;
     j[0] = sizeof(GlobalDescriptorTable) << 16;
+    
+    // load the GDT
     asm volatile("lgdt (%0)": :"p" (((uint8_t *) j)+2));
 }
 
 matidigo::GlobalDescriptorTable::~GlobalDescriptorTable() {
 }
 
-matidigo::types::uint16_t matidigo::GlobalDescriptorTable::CodeSegmentSelector() {
-    return matidigo::types::uint16_t();
+uint16_t matidigo::GlobalDescriptorTable::CodeSegmentSelector() {
+    return (uint8_t*)&this->code_segment_selector - (uint8_t*)this;
 }
 
-matidigo::types::uint16_t matidigo::GlobalDescriptorTable::DataSegmentSelector() {
-    return matidigo::types::uint16_t();
+uint16_t matidigo::GlobalDescriptorTable::DataSegmentSelector() {
+    return (uint8_t*)&this->data_segment_selector - (uint8_t*)this;
 }

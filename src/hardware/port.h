@@ -1,11 +1,10 @@
-#ifndef __MYOS__HARDWARECOMMUNICATION__PORT_H
-#define __MYOS__HARDWARECOMMUNICATION__PORT_H
+#ifndef __MATIDIGO__HARDWARE__PORT_H
+#define __MATIDIGO__HARDWARE__PORT_H
 
 #include "../types.h"
-//using namespace matidigo::types;
+// Groupable into a single class, changing only the assembly instruction.
 
-
-namespace myos
+namespace matidigo
 {
     namespace hardware
     {

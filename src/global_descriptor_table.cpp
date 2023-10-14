@@ -34,29 +34,29 @@ SegmentDescriptor::SegmentDescriptor(uint32_t base, uint32_t limit, uint8_t type
     // Encode the limit
 
     // alternative to this pointer
-    target[0] = limit & 0xFF;
-    target[1] = (limit >> 8) & 0xFF;
-    target[6] |= (limit >> 16) & 0xF;
+    target[LIMIT_LOWER_BYTE_LOWER] = limit & 0xFF;
+    target[LIMIT_LOWER_BYTE_UPPER] = (limit >> 8) & 0xFF;
+    target[LIMIT_UPPER_BYTE] |= (limit >> 16) & 0xF;
 
     // Encode the base
 
     // alternative to this pointer
-    target[2] = base & 0xFF;
-    target[3] = (base >> 8) & 0xFF;
-    target[4] = (base >> 16) & 0xFF;
-    target[7] = (base >> 24) & 0xFF;
+    target[BASE_LOWER_BYTE_LOWER] = base & 0xFF;
+    target[BASE_LOWER_BYTE_UPPER] = (base >> 8) & 0xFF;
+    target[BASE_UPPER_BYTE_LOWER] = (base >> 16) & 0xFF;
+    target[BASE_UPPER_BYTE_UPPER] = (base >> 24) & 0xFF;
 
     // Type
-    target[5] = type;
+    target[TYPE] = type;
 }
 
 uint32_t SegmentDescriptor::Base() {
     uint8_t* target = (uint8_t*)this;
 
-    uint32_t result = target[7];
-    result = (result << 8) + target[4];
-    result = (result << 8) + target[3];
-    result = (result << 8) + target[2];
+    uint32_t result = target[BASE_UPPER_BYTE_UPPER];
+    result = (result << 8) + target[BASE_UPPER_BYTE_LOWER];
+    result = (result << 8) + target[BASE_LOWER_BYTE_UPPER];
+    result = (result << 8) + target[BASE_LOWER_BYTE_LOWER];
 
     return result;
 }
@@ -64,9 +64,9 @@ uint32_t SegmentDescriptor::Base() {
 uint32_t SegmentDescriptor::Limit() {
     uint8_t* target = (uint8_t*)this;
 
-    uint32_t result = target[6] & 0xF;
-    result = (result << 8) + target[1];
-    result = (result << 8) + target[0];
+    uint32_t result = target[LIMIT_UPPER_BYTE] & 0xF;
+    result = (result << 8) + target[LIMIT_LOWER_BYTE_UPPER];
+    result = (result << 8) + target[LIMIT_LOWER_BYTE_LOWER];
 
     if((target[6] & 0xC0) == 0xC0)
         result = (result << 12) | 0xFFF;

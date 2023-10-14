@@ -4,6 +4,17 @@
 #define MAX_ADDRESSABLE_16BIT_MEMORY 0x10000
 #define FIRST_12_ONES 0xFFF
 
+#define LIMIT_LOWER_BYTE_LOWER 0
+#define LIMIT_LOWER_BYTE_UPPER 1
+#define LIMIT_UPPER_BYTE 6
+
+#define BASE_LOWER_BYTE_LOWER 2
+#define BASE_LOWER_BYTE_UPPER 3
+#define BASE_UPPER_BYTE_LOWER 4
+#define BASE_UPPER_BYTE_UPPER 7
+
+#define TYPE 5
+
 #include "types.h"
 
 namespace matidigo {

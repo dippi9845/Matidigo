@@ -82,8 +82,8 @@ namespace matidigo
             RawDataHandler* handler;
             
         public:
-            amd_am79c973(myos::hardware::PeripheralComponentInterconnectDeviceDescriptor *dev,
-                         myos::hardware::InterruptManager* interrupts);
+            amd_am79c973(matidigo::hardware::PeripheralComponentInterconnectDeviceDescriptor *dev,
+                         matidigo::hardware::InterruptManager* interrupts);
             ~amd_am79c973();
             
             void Activate();

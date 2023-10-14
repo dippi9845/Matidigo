@@ -2,6 +2,8 @@
 #define __MATIDIGO__MULTITASKING_H
 
 #define MAX_TASKS 256
+#define STACK_ELEMENTS 0x1000
+
 
 #include "types.h"
 #include "global_descriptor_table.h"
@@ -35,7 +37,7 @@ namespace matidigo
         friend class TaskManager;
         
         private:
-            types::uint8_t stack[4096]; // 4 KiB
+            types::uint8_t stack[STACK_ELEMENTS]; // 4 KiB
             CPUState* cpustate;
         public:
             Task(GlobalDescriptorTable *gdt, void entrypoint());

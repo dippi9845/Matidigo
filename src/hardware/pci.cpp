@@ -1,5 +1,5 @@
 #include "pci.h"
-
+#include "../drivers/amd_am79c973.h"
 
 using namespace matidigo::types;
 using namespace matidigo::drivers;

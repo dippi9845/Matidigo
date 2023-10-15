@@ -12,6 +12,15 @@ unsigned int current_cursor_location = 0;
 
 char *vidptr = (char*)VIDEO_MEMORY_START;
 
+typedef void (*constructor)();
+extern "C" constructor start_ctors;
+extern "C" constructor end_ctors;
+extern "C" void CallConstructors() {
+	for(constructor* i = &start_ctors; i != &end_ctors; i++)
+        (*i)();
+}
+
+
 void kprint(const char *str)
 {
 	unsigned int i = 0;

@@ -1,6 +1,5 @@
 # Matidigo
-A base kernel that prints a simple string at screen ans support keyboard typing
-Compile kernel
+A opereating system that supports all of today's major features
 ```bash
 make exe/kernel
 ```
